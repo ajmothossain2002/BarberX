@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String?
+  name      String?
+  phone     String?
+  role      String    @default("CUSTOMER")
+  shops     Shop[]
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Shop {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  address     String
+  city        String
+  latitude    Float?
+  longitude   Float?
+  ownerId     String
+  owner       User      @relation(fields: [ownerId], references: [id])
+  services    Service[]
+  bookings    Booking[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Service {
+  id        String    @id @default(uuid())
+  name      String
+  duration  Int
+  price     Float
+  shopId    String
+  shop      Shop      @relation(fields: [shopId], references: [id])
+  bookings  Booking[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Booking {
+  id        String        @id @default(uuid())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id])
+  shopId    String
+  shop      Shop          @relation(fields: [shopId], references: [id])
+  serviceId String
+  service   Service       @relation(fields: [serviceId], references: [id])
+  startTime DateTime
+  endTime   DateTime
+  status    BookingStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
