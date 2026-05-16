@@ -1,0 +1,62 @@
+# ============================================================
+# BarberX Backend - Application Configuration
+# ============================================================
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# ============================================================
+# Database Configuration - SQLite
+# ============================================================
+spring:
+  application:
+    name: barberx-backend
+
+  datasource:
+    url: jdbc:sqlite:barberx.db
+    driver-class-name: org.sqlite.JDBC
+    hikari:
+      maximum-pool-size: 1          # SQLite supports single writer
+      connection-timeout: 30000
+
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+
+# ============================================================
+# Security - JWT Configuration
+# ============================================================
+app:
+  jwt:
+    secret: YmFyYmVyeC1iYWNrZW5kLXNlY3JldC1rZXktZm9yLWp3dC10b2tlbi1nZW5lcmF0aW9uLTIwMjQ=
+    expiration-ms: 86400000         # 24 hours
+    issuer: barberx-backend
+
+# ============================================================
+# Swagger / OpenAPI Configuration
+# ============================================================
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    # path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+
+# ============================================================
+# Logging
+# ============================================================
+logging:
+  level:
+    com.barberx: DEBUG
+    org.springframework.security: WARN
+    org.hibernate.SQL: WARN
