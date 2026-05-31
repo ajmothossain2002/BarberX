@@ -16,6 +16,7 @@ public final class AppConstants {
     public static final String ROLE_ADMIN = "ADMIN";
     public static final String ROLE_USER = "USER";
     public static final String ROLE_BARBER = "BARBER";
+    public static final String ROLE_OWNER = "OWNER";
 
     // Auth headers
     public static final String AUTH_HEADER = "Authorization";

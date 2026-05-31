@@ -56,6 +56,12 @@ public class User extends AuditEntity {
     @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private CustomerProfile customerProfile;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ShopOwnerProfile shopOwnerProfile;
+
     /**
      * Convenience method to check if the user account is currently active.
      */

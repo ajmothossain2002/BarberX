@@ -24,6 +24,7 @@ public class DataInitializer implements CommandLineRunner {
         roleService.createRoleIfNotExists(AppConstants.ROLE_ADMIN, "System Administrator");
         roleService.createRoleIfNotExists(AppConstants.ROLE_USER, "Standard User");
         roleService.createRoleIfNotExists(AppConstants.ROLE_BARBER, "Barber / Service Provider");
+        roleService.createRoleIfNotExists(AppConstants.ROLE_OWNER, "Shop Owner");
         log.info("Default roles initialized successfully");
     }
 }

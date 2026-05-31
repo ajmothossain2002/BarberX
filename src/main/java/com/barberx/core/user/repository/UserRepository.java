@@ -10,6 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = "roles")
     Optional<User> findByEmailAndDeletedFalse(String email);
 
     Optional<User> findByIdAndDeletedFalse(Long id);

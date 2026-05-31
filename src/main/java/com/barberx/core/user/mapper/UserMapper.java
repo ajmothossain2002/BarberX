@@ -20,6 +20,13 @@ public final class UserMapper {
      * Maps a User entity to an AuthResponse DTO (used during login/register).
      */
     public static AuthResponse.UserInfo toUserInfo(User user) {
+        return toUserInfo(user, null);
+    }
+
+    /**
+     * Maps a User entity to an AuthResponse DTO (used during login/register) with onboarding completion flag.
+     */
+    public static AuthResponse.UserInfo toUserInfo(User user, Boolean profileCompleted) {
         List<String> roleNames = extractRoleNames(user);
 
         return AuthResponse.UserInfo.builder()
@@ -28,6 +35,7 @@ public final class UserMapper {
                 .email(user.getEmail())
                 .phoneNumber(user.getPhoneNumber())
                 .roles(roleNames)
+                .profileCompleted(profileCompleted)
                 .build();
     }
 

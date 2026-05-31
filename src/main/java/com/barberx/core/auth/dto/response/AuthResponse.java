@@ -22,6 +22,18 @@ public class AuthResponse {
     @Builder.Default
     private String tokenType = "Bearer";
 
+    @Schema(description = "User's main role name", example = "OWNER")
+    private String role;
+
+    @Schema(description = "Whether the user's business onboarding profile is completed", example = "true")
+    private Boolean profileCompleted;
+
+    @Schema(description = "The ID of the owner's configured shop, if any", example = "1")
+    private Long shopId;
+
+    @Schema(description = "The authoritative next route the frontend should navigate to", example = "/owner/dashboard")
+    private String nextRoute;
+
     @Schema(description = "Authenticated user information")
     private UserInfo user;
 
@@ -46,5 +58,8 @@ public class AuthResponse {
 
         @Schema(description = "Assigned roles", example = "[\"USER\"]")
         private List<String> roles;
+
+        @Schema(description = "Whether the user's business onboarding profile is completed", example = "true")
+        private Boolean profileCompleted;
     }
 }
